@@ -1,0 +1,78 @@
+@import "compass";
+@import "compass/reset";
+@import "compass/css3/user-interface";
+
+$main: #E8D5B7;
+$mainLight: #E8D5B9;
+
+$white: #FFF;
+$black: #0E2430;
+$red: #FC3A51;
+$yellow: #F5B349;
+
+%heading {
+	font-family: 'Oswald', sans-serif;
+	font-weight: 400;
+}
+
+%copy {
+	font-family: 'Lora', serif;
+	font-weight: 400;
+}
+
+body {
+	font-size: 14px;
+	@extend %copy;
+	background-color: $black;
+	color: $white;
+	padding-top: 4em;
+}
+
+h1, h2 {
+	@extend %heading;
+}
+
+h1 {
+	font-size: 2em;
+	padding-bottom: .5em;
+	text-shadow: 1px 1px $black;
+}
+
+h2 {
+	font-size: 1.5em;
+}
+
+a,
+a:link,
+a:active {
+	color: $red;
+	@include transition(color 250ms ease);
+	text-decoration: none;
+	&:hover {
+		color: $yellow;
+	}
+}
+
+header {
+	padding: 1em;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	background: $black;
+	h1 {
+		padding-bottom: 0;
+	}
+}
+
+.outer {
+	padding: 1em;
+	background-color: $red;
+	@include transition(background-color 250ms ease);
+	&:hover {
+		background-color: $yellow;
+	}
+}
+
+.inner {
+	padding: .75em;
+}
