@@ -1,9 +1,13 @@
 language: php
 
 php:
-  - 5.5
   - 5.6
 
 before_script:
+  - cp .env.example .env
+  - sed -i '' "s/TWITTER_KEY_VALUE/$TWITTER_KEY_VALUE/g" .env
+  - sed -i '' "s/TWITTER_SECRET_VALUE/$TWITTER_SECRET_VALUE/g" .env
+  - sed -i '' "s/TWITTER_TOKEN_VALUE/$TWITTER_TOKEN_VALUE/g" .env
+  - sed -i '' "s/TWITTER_TOKEN_SECRET_VALUE/$TWITTER_TOKEN_SECRET_VALUE/g" .env
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
