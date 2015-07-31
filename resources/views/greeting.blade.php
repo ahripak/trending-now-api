@@ -7,7 +7,7 @@
 		@endif
 		<meta name="keywords" content="hashtagsnow, hashtags, instagram, facebook, twitter, socialmedia, tags4likes, tagsfourlikes, followers, instafamous">
 		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densitydpi=device-dpi" />
-		<title>#hashtagsnow</title>
+		<title>Trending Now</title>
 		<link href='http://fonts.googleapis.com/css?family=Lora|Oswald:400,300' rel='stylesheet' type='text/css'>
 		<style>
 			<?= file_get_contents('css/screen.css') ?>
@@ -17,7 +17,7 @@
 	<body>
 		<header class="clear top">
 			<div class="name clear">
-				<h1><a href="/">#hashtagsnow</a></h1>
+				<h1><a href="/">Trending Now</a></h1>
 			</div>
 		</header>
 		@foreach ($twitter as $t)
