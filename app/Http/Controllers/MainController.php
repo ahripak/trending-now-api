@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use Codebird\Codebird as Codebird;
 use Carbon\Carbon as Carbon;
+use Illuminate\Support\Facades\Request as Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class MainController extends BaseController
 {
+    /**
+     * Method to send an ecapsulated JSON response.
+     *
+     * @param  array  $data
+     * @param  integer $status
+     * @return Illuminate\Http\JsonResponse
+     */
     private function respond($data, $status = 200)
     {
         return response()->json(
@@ -17,16 +25,37 @@ class MainController extends BaseController
             ]
         );
     }
+
+    /**
+     * API Method - Fetch [and cache] all trends.
+     *
+     * Route: /api/<version>/all
+     *
+     * @return Illuminate\Http\JsonResponse
+     */
     public function all()
     {
         $response = array(
-            'twitter' => $this->unique($this->twitter(), 'name'),
+            'twitter' => $this->unique(
+                $this->twitter(),
+                'name',
+                (bool) Request::input('ensure_hash', false)
+            ),
         );
 
         return $this->respond($response);
     }
 
-    private function unique($list, $property)
+    /**
+     * Method to reduce the provided array to a unique set of items based on
+     * a property or key of each item.
+     *
+     * @param  array   $list
+     * @param  string  $property
+     * @param  boolean $ensureHash
+     * @return array
+     */
+    private function unique($list, $property, $ensureHash)
     {
         $final = [];
         $used  = [];
@@ -41,6 +70,10 @@ class MainController extends BaseController
                 continue;
             }
 
+            if ($ensureHash && substr($item->{$property}, 0, 1) !== '#') {
+                $item->{$property} = '#' . $item->{$property};
+            }
+
             $final[] = $item;
             $used[]  = $item->{$property};
         }
@@ -48,6 +81,11 @@ class MainController extends BaseController
         return $final;
     }
 
+    /**
+     * Fetch trends from Twitter based on Global and USA scopes.
+     *
+     * @return array
+     */
     private function twitter()
     {
         if (! $result = \Cache::get('twitter')) {
@@ -90,10 +128,19 @@ class MainController extends BaseController
         return $result;
     }
 
+    /**
+     * Render the home page with the list of current trends.
+     *
+     * @return Illuminate\View\View
+     */
     public function index()
     {
         return view('greeting', [
-            'twitter' => $this->unique($this->twitter(), 'name'),
+            'twitter' => $this->unique(
+                $this->twitter(),
+                'name',
+                false
+            ),
         ]);
     }
 }

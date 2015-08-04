@@ -32,7 +32,7 @@
 			<div class="outer short no-border">
 				<div class="inner clear">
 					<div class="copyright">
-						&copy; {{ date( 'Y' ) }} Alexander Hripak | <a href="/#FIXME">API Docs</a>
+						&copy; {{ date( 'Y' ) }} Alexander Hripak | <a href="http://alexh58.github.io/trending-now-api/">API Docs</a>
 					</div>
 				</div>
 			</div>
